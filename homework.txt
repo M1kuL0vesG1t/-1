@@ -1,0 +1,20 @@
+#!/bin/bash
+input_dir=$1
+output_dir=$2
+file_cnt=0
+down()
+{
+cd $1
+for file in *; do
+    if [[ $file == *"."* ]]; then
+    	output="$output_dir"
+    	output+="$file_cnt"+"$file"   #у каждого файла свой номер
+    	file_cnt+=1
+        echo "$file"
+        cp "$file" "$output"
+    else
+        down $1/$file
+    fi
+done 
+}
+down "$input_dir"
